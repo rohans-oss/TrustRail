@@ -1,0 +1,21 @@
+{
+  "difficulty_mode": "hard",
+  "n_transactions": 12000,
+  "scam_rate": 0.06091666666666667,
+  "gateway_a_share": 0.55375,
+  "gateway_b_share": 0.44625,
+  "naive_success_rate_a": 0.7861550037622272,
+  "naive_success_rate_b": 0.8016806722689076,
+  "true_avg_p_success_a": 0.7023738749999999,
+  "true_avg_p_success_b": 0.6964470083333334,
+  "confounding_strength": {
+    "out_of_hours_in_B_vs_A": 0.19500983237538808,
+    "first_time_in_B_vs_A": 0.24673550383283488,
+    "amount_z_in_B_vs_A": 0.6854429860913515
+  },
+  "is_collect_rate": 0.16491666666666666,
+  "is_first_time_rate": 0.5545,
+  "is_out_of_hours_rate": 0.23375,
+  "is_suspiciously_fast_rate": 0.12616666666666668,
+  "amount_vs_typical_median": 1.132
+}

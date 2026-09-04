@@ -1,0 +1,19 @@
+{
+  "last_check": "2026-09-03T05:44:03.865278",
+  "severity": "OK",
+  "feature_drift": {
+    "summary": {
+      "severity": "OK",
+      "note": "First run \u2014 no previous data to compare."
+    }
+  },
+  "propensity_auc_drift": {
+    "current": 0.6961292552492078,
+    "previous": 0.6961292552492078,
+    "delta": 0.0,
+    "severity": "OK",
+    "note": "Propensity AUC moved +0.0000. Big drop = less confounding (good). Big rise = more confounding (bad)."
+  },
+  "previous_version": "0.1.202609030542",
+  "previous_trained_at": "2026-09-03T05:42:09.444321"
+}

@@ -1,0 +1,81 @@
+// TrustRail — Prisma schema
+// Stores the live transaction log + feedback outcomes for retraining.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Transaction {
+  id           String   @id @default(cuid())
+  txnId        String   @unique                       // external id from ML service
+  timestamp    DateTime @default(now())
+
+  // --- Stage 1: intent risk ---
+  stage1Verdict    String   // "pass" | "friction" | "hard_block"
+  scamRiskScore    Float
+  stage1Reasons    String   // JSON-encoded array of {id,label,detail}
+
+  // --- Stage 2: causal routing ---
+  stage2Recommended     String   // "A" | "B"
+  stage2NaiveRecommend  String   // "A" | "B"
+  pSuccessACausal       Float
+  pSuccessBCausal       Float
+  pSuccessANaive        Float
+  pSuccessBNaive        Float
+  upliftBOverA          Float
+  pSuccessATrue         Float?   // only set if ground truth available (demo / feedback)
+  pSuccessBTrue         Float?
+
+  // --- Final action ---
+  finalAction       String   // "route_to_A" | "route_to_B" | "friction_review" | "hard_block"
+  finalActionReason String
+  processingMs      Float
+
+  // --- Input features (for replay / explanation) ---
+  payerId            String
+  payeeId            String
+  amount             Float
+  direction          String   // "send" | "qr" | "collect"
+  hourOfDay          Int
+  approvalLatencyMs Int
+  isFirstTimePayee   Int
+  isHighRiskMerchant Int
+
+  // --- Ground truth (filled in by feedback endpoint) ---
+  isScam               Int?    // 0 or 1, only known for scams
+  gatewayActuallyUsed  String?  // "A" or "B"
+  outcome              Int?     // 1 success, 0 failure
+  failureReason        String?
+  // Source of the feedback label. Critical for retrain integrity:
+  //   "model_estimate"   — outcome was sampled from the model's own counterfactual
+  //                        estimate (circular, must NOT be used for retraining)
+  //   "human_labeled"    — analyst manually marked the outcome after review
+  //   "observed_outcome" — real gateway callback reported the outcome
+  feedbackSource       String?
+
+  createdAt DateTime @default(now())
+}
+
+model ModelArtifact {
+  id              String   @id @default(cuid())
+  modelName       String   // "intent_risk" | "naive_router" | "causal_router"
+  version         String   // semver-ish e.g. "0.1.0" → "0.1.1" on retrain
+  trainedAt       DateTime @default(now())
+  // JSON blob: {auc_test, ate_b_vs_a_crossfit, propensity_auc, n_train, ...}
+  metrics         String
+  // SHA-256 of the training DataFrame's CSV bytes — used by drift monitor
+  // to detect that the underlying data distribution changed between runs.
+  trainingDataHash String?
+  trainingDataRows Int?
+  // Path to the serialized .joblib on disk
+  path            String
+  // True if this is the artifact currently loaded into the FastAPI service
+  isActive        Boolean  @default(false)
+
+  @@index([modelName, isActive])
+}

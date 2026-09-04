@@ -1,0 +1,29 @@
+{
+  "training_metrics": {
+    "A": {
+      "n_train": 5426,
+      "n_test": 1357,
+      "auc": 0.8435495073609439,
+      "log_loss": 0.34278528574474587,
+      "fallback": false
+    },
+    "B": {
+      "n_train": 4173,
+      "n_test": 1044,
+      "auc": 0.7949647600975873,
+      "log_loss": 0.4287434259610871,
+      "fallback": false
+    }
+  },
+  "bias_evaluation": {
+    "n_txns": 12000,
+    "n_disagreements_with_oracle": 603,
+    "pct_disagree_with_oracle": 0.05025,
+    "pct_agree_with_oracle": 0.94975,
+    "bias_in_p_a_estimate": 0.008179483625963414,
+    "bias_in_p_b_estimate": 0.008773607634173635,
+    "expected_success_on_disagreements_naive": 0.7601281923714759,
+    "expected_success_on_disagreements_oracle": 0.8095369817578772,
+    "uplift_loss_on_disagreements": 0.049408789386401364
+  }
+}

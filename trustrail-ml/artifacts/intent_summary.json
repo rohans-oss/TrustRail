@@ -1,0 +1,67 @@
+{
+  "features": [
+    "is_collect_request",
+    "is_first_time_payee",
+    "amount_vs_typical_ratio",
+    "is_suspiciously_fast_approval",
+    "is_out_of_hours",
+    "is_high_amount_first_time",
+    "prior_txn_count_to_payee",
+    "is_high_risk_merchant",
+    "amount_log"
+  ],
+  "n_train": 9600,
+  "n_test": 2400,
+  "scam_rate_train": 0.060625,
+  "auc_train": 0.9952142298069002,
+  "auc_test": 0.9944277085404083,
+  "coefficients": {
+    "is_collect_request": 4.297326206062073,
+    "is_first_time_payee": -0.29147826989015657,
+    "amount_vs_typical_ratio": 0.25025333570934044,
+    "is_suspiciously_fast_approval": 0.9027073555322329,
+    "is_out_of_hours": 0.996031120021307,
+    "is_high_amount_first_time": 0.33001777884106437,
+    "prior_txn_count_to_payee": -0.09864138737191473,
+    "is_high_risk_merchant": 0.0039729964270082355,
+    "amount_log": 1.5071141665362413
+  },
+  "friction_threshold_calibrated": 0.8979591836734694,
+  "classification_report": {
+    "0": {
+      "precision": 0.9986187845303868,
+      "recall": 0.9618625277161863,
+      "f1-score": 0.9798960921617348,
+      "support": 2255.0
+    },
+    "1": {
+      "precision": 0.6228070175438597,
+      "recall": 0.9793103448275862,
+      "f1-score": 0.7613941018766756,
+      "support": 145.0
+    },
+    "accuracy": 0.9629166666666666,
+    "macro avg": {
+      "precision": 0.8107129010371232,
+      "recall": 0.9705864362718862,
+      "f1-score": 0.8706450970192052,
+      "support": 2400.0
+    },
+    "weighted avg": {
+      "precision": 0.9759134902749509,
+      "recall": 0.9629166666666666,
+      "f1-score": 0.966694930248679,
+      "support": 2400.0
+    }
+  },
+  "confusion_matrix_at_0.5": [
+    [
+      2169,
+      86
+    ],
+    [
+      3,
+      142
+    ]
+  ]
+}

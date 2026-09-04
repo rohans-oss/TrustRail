@@ -1,0 +1,71 @@
+{
+  "training_meta": {
+    "features": [
+      "amount",
+      "amount_z",
+      "amount_vs_typical_ratio",
+      "is_out_of_hours",
+      "is_first_time_payee",
+      "is_high_risk_merchant",
+      "prior_txn_count_to_payee",
+      "hour_of_day",
+      "approval_latency_ms",
+      "approval_latency_z"
+    ],
+    "n_train": 12000,
+    "n_folds_cross_fit": 5,
+    "fit_seconds": 6.5,
+    "propensity_mean": 0.49183861206897345,
+    "propensity_std": 0.1778929815252276,
+    "propensity_auc": 0.6961292552492078,
+    "ate_b_vs_a_drllearner": -0.05165343364407145,
+    "ate_b_vs_a_crossfit": -0.06925457774106947,
+    "ate_b_vs_a_ci": null,
+    "cate_mean_for_hard_txns": 0.13594257442969634,
+    "cate_mean_for_easy_txns": -0.34682647915924075,
+    "method": "DR-learner with 5-fold cross-fitting (Chernozhukov 2018) + EconML DRLearner for diagnostics"
+  },
+  "evaluation": {
+    "n_total": 12000,
+    "n_disagree_naive_vs_causal": 376,
+    "pct_disagree_naive_vs_causal": 0.03133333333333333,
+    "on_disagreements": {
+      "causal_matches_oracle_pct": 0.7686170212765957,
+      "naive_matches_oracle_pct": 0.23138297872340424,
+      "expected_success_naive": 0.7640635638297871,
+      "expected_success_causal": 0.8014816489361702,
+      "uplift_gain_from_causal": 0.037418085106383114
+    },
+    "overall_expected_success": {
+      "naive_router": 0.9053572583333332,
+      "causal_router": 0.9065296916666666,
+      "oracle_router": 0.9078400500000001,
+      "gap_naive_vs_oracle": 0.0024827916666668726,
+      "gap_causal_vs_oracle": 0.0013103583333334834,
+      "lift_causal_over_naive": 0.0011724333333333892
+    },
+    "mean_abs_bias_uplift": {
+      "naive": 0.06142345369071245,
+      "causal": 0.0491454871810189
+    },
+    "mean_signed_bias_per_gateway": {
+      "p_a_naive": 0.008179483625963414,
+      "p_a_causal": 0.007466397845059158,
+      "p_b_naive": 0.008773607634173635,
+      "p_b_causal": 0.007760942638105094
+    },
+    "uplift_estimate_mean": {
+      "naive": 0.06885900099178978,
+      "causal": 0.06915858020695408,
+      "true": 0.069453125
+    },
+    "uplift_mse": {
+      "naive": 0.007190354671300009,
+      "causal": 0.005117516213969709
+    },
+    "uplift_corr_with_truth": {
+      "naive": 0.9855572282607069,
+      "causal": 0.9908914068783072
+    }
+  }
+}
